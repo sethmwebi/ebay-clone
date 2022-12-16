@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import Header from "../components/Header";
 import {
 	useAddress,
@@ -45,10 +45,10 @@ const Create = () => {
 		if(!selectedNft) return;
 
 		const target = e.target as typeof e.target & {
-			elements: { listingType: { value: string}; price: { value: string}};
+			elements: { listingType: { value: string}, price: { value: string}};
 		}
 
-		const { listingType, price} = e.target.elements;
+		const { listingType, price} = target.elements;
 
 		if(listingType.value === "directListing"){
 			createDirectListing({

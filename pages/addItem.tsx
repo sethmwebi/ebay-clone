@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import Header from "../components/Header";
 import { useAddress, useContract } from "@thirdweb-dev/react";
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 
 const AddItem = () => {
 	const address = useAddress();
-	const router = useRouter()
+	const router = useRouter();
 	const [preview, setPreview] = useState<string>("");
 	const [image, setImage] = useState<File>();
 
@@ -15,39 +15,39 @@ const AddItem = () => {
 	);
 
 	const mintNft = async (e: FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
+		e.preventDefault();
 
-		if(!contract || !address) return;
+		if (!contract || !address) return;
 
-		if(!image){
-			alert("Please select an image")
+		if (!image) {
+			alert("Please select an image");
 			return;
 		}
 
 		const target = e.target as typeof e.target & {
-			name: { value: string },
-			description: { value: string }
-		}
+			name: { value: string };
+			description: { value: string };
+		};
 
 		const metadata = {
 			name: target.name.value,
 			description: target.description.value,
-			image
-		}
+			image,
+		};
 
 		try {
-			const tx = await contract.mintTo(address, metadata)
+			const tx = await contract.mintTo(address, metadata);
 
 			const receipt = tx.receipt;
 			const tokenId = tx.id;
-			const nft = tx.data()
+			const nft = tx.data();
 
-			console.log(receipt, tokenId, nft)
-			router.push("/")
-		} catch(error){
-			console.error(error)
+			console.log(receipt, tokenId, nft);
+			router.push("/");
+		} catch (error) {
+			console.error(error);
 		}
-	}
+	};
 	return (
 		<div>
 			<Header />
@@ -55,8 +55,8 @@ const AddItem = () => {
 				<h1 className="text-4xl font-bold">Add an Item to the Marketplace</h1>
 				<h2 className="text-xl font-semibold pt-5">Item Details</h2>
 				<p className="pb-5">
-					By adding an item to the marketplace, you&apos;re essentially Minting an
-					NFT of the item into your wallet which can then list for that{" "}
+					By adding an item to the marketplace, you&apos;re essentially Minting
+					an NFT of the item into your wallet which can then list for that{" "}
 				</p>
 				<div className="flex flex-col justify-center items-center md:flex-row md:space-x-5 pt-5">
 					<img
@@ -64,7 +64,10 @@ const AddItem = () => {
 						src={preview || "https://links.papareact.com/ucj"}
 						alt=""
 					/>
-					<form onSubmit={mintNft} className="flex flex-col flex-1 p-2 space-y-2">
+					<form
+						onSubmit={mintNft}
+						className="flex flex-col flex-1 p-2 space-y-2"
+					>
 						<label className="font-light">Name of Item</label>
 						<input
 							className="formField"
@@ -91,7 +94,10 @@ const AddItem = () => {
 								}
 							}}
 						/>
-						<button type="submit" className="bg-blue-600 w-56 mt-auto mx-auto md:ml-auto font-bold text-white rounded-full py-4 px-10">
+						<button
+							type="submit"
+							className="bg-blue-600 w-56 mt-auto mx-auto md:ml-auto font-bold text-white rounded-full py-4 px-10"
+						>
 							Add/Mint Item
 						</button>
 					</form>
