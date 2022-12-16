@@ -55,7 +55,7 @@ const AddItem = () => {
 				<h1 className="text-4xl font-bold">Add an Item to the Marketplace</h1>
 				<h2 className="text-xl font-semibold pt-5">Item Details</h2>
 				<p className="pb-5">
-					By adding an item to the marketplace, you're essentially Minting an
+					By adding an item to the marketplace, you&apos;re essentially Minting an
 					NFT of the item into your wallet which can then list for that{" "}
 				</p>
 				<div className="flex flex-col justify-center items-center md:flex-row md:space-x-5 pt-5">
